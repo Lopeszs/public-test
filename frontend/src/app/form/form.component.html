@@ -1,0 +1,179 @@
+<div class="ounder-md p-2x">
+  <h1>Formulário para acesso aos dados</h1>
+
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eleifend
+    feugiat metus, vitae blandit nibh placerat sed. Proin finibus tincidunt
+    venenatis. Pellentesque eget eros ac quam auctor eleifend nec sodales purus.
+    Aliquam nec blandit justo, vel eleifend sapien. Vivamus sit amet enim leo.
+    Nunc auctor lacus non arcu faucibus mollis. Pellentesque habitant morbi
+    tristique senectus et netus et malesuada fames ac turpis egestas. Ut
+    pellentesque id nunc et lacinia. Sed porttitor vehicula turpis, lobortis
+    consectetur.
+  </p>
+</div>
+
+<h3>Seleção de dados a serem baixados</h3>
+<p>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eleifend
+  feugiat metus, vitae blandit nibh placerat sed. Proin finibus tincidunt
+  venenatis. Pellentesque eget eros ac quam auctor eleifend nec sodales purus.
+</p>
+
+<!-- PRIMEIRO CARD: ESCOLHER DADOS A SEREM BAIXADOS -->
+<form class="h-100" method="get">
+  <div class="br-card rounder-md">
+    <div class="card-header">
+      <div class="br-input">
+        <label for="meu-select">Dados a serem baixados</label>
+        <div class="br-select" [class.is-active]="isDropdownOpen">
+          <div class="input-group">
+            <input
+              id="meu-select"
+              type="text"
+              [value]="placeholderData()"
+              readonly
+              (click)="toggleDropdown($event)"
+              placeholder="Selecione um ou mais conjunto de dados"
+              required
+            />
+            <button
+              class="br-button"
+              type="button"
+              (click)="toggleDropdown($event)"
+            >
+              <i class="fas fa-chevron-down"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="br-list" tabindex="0" *ngIf="isDropdownOpen">
+          <div class="br-item" *ngFor="let d of data">
+            <div class="br-checkbox">
+              <input
+                [id]="d.value"
+                type="checkbox"
+                name="select"
+                [value]="d.value"
+                (click)="selectData(d)"
+                [checked]="isItemSelected(d)"
+              />
+              <label [for]="d.value">{{ d.label }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- SEGUNDO CARD: FILTROS -->
+
+  <h3 *ngIf="selectedData.length != 0">Filtragem de dados</h3>
+
+  <div *ngIf="isItemSelected(data[0])">
+    <app-filter-temas></app-filter-temas>
+  </div>
+
+  <div *ngIf="isItemSelected(data[1])">
+    <app-filter-macrotemas></app-filter-macrotemas>
+  </div>
+
+  <!-- TERCEIRO CARD: DADOS DO USUARIO -->
+
+  <h3>Dados para envio</h3>
+  <div class="br-card rounder-md">
+    <div class="card-header">
+      <div>
+        <!-- <div class="br-input">
+          <label for="meu-select">Dados a serem baixados</label>
+          <div class="br-select" [class.is-active]="isDropdownOpen">
+            <div class="input-group">
+              <input
+                id="meu-select"
+                type="text"
+                [value]="selectedLabel"
+                readonly
+                (click)="toggleDropdown($event)"
+                placeholder="Selecione o tipo"
+                required
+                pattern="[A-Za-z]{3}"
+              />
+              <button
+                class="br-button"
+                type="button"
+                (click)="toggleDropdown($event)"
+              >
+                <i class="fas fa-chevron-down"></i>
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="br-list"
+            *ngIf="isDropdownOpen"
+            (mouseleave)="toggleDropdown($event)"
+          >
+            <div
+              class="br-item"
+              *ngFor="let item of opcoes"
+              (click)="selectOption(item)"
+            >
+              {{ item.label }}
+            </div>
+          </div>
+        </div> -->
+        <div class="row gx-3 gy-3 align-items-end">
+          <div class="col-12 col-lg-5">
+            <div class="br-input">
+              <label for="input-default">Nome do pesquisador</label>
+              <input
+                id="input-default"
+                type="text"
+                placeholder="Nome do pesquisador"
+                name="nome-pesquisador"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-12 col-lg-5">
+            <div class="br-input">
+              <label for="input-default">E-mail para envio dos dados</label>
+              <input
+                id="input-default"
+                type="text"
+                placeholder="E-mail"
+                required
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHECKBOX DE TERMOS -->
+  <div class="br-checkbox">
+    <input id="checkbox-1" name="termo-aceito" type="checkbox" required />
+    <label for="checkbox-1"
+      >Eu aceito os
+      <a href="">
+        termos de utilização dos dados mantidos pelo Observatório da Evolução do
+        Sistema Nacional de Pós-Graduação.</a
+      ></label
+    >
+  </div>
+
+  <!-- BOTÒES -->
+<div class="mt-auto d-flex justify-content-end gap-2">
+  <a class="br-button secondary mr-3" href=""> Cancelar </a>
+  <button class="br-button primary mr-3" type="button" (click)="enviaEmail()">
+    Enviar
+  </button>
+</div>
+
+<!-- RECAPTCHA V2 (SEMPRE OBRIGATÓRIO) -->
+<div *ngIf="mostrarCaptcha" style="margin-top: 20px;">
+  <re-captcha
+    siteKey="6LcO4J4sAAAAAM7peH5OBke6PwqRNtJ5P8qJ5HBD"
+    (resolved)="onCaptchaResolved($event)">
+  </re-captcha>
+</div>
