@@ -1,0 +1,63 @@
+.col-sm{
+  margin: 2%;
+}
+
+.body{
+  margin: 100px;
+}
+
+.br-checkbox{
+  margin-top: 10px;
+}
+
+/* Garante que a lista apareça sobreposta aos outros elementos */
+.br-list {
+  /* DUAS COISAS IMPORTANTES PRO SELECT/CHECKBOX APARECER CORRETAMENTE. */
+  /* display: block !important;
+  position: unset; */
+
+  
+  z-index: 9999;
+  width: 100%;
+  background: white;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  border: 1px solid #ccc;
+  margin-top: 5px;
+}
+
+/* Estilo básico para os itens da lista */
+.br-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.br-item:hover {
+  background-color: #f0f0f0;
+}
+
+/* Garante que o container do select ocupe 100% da largura da coluna*/ 
+.br-select {
+  width: 100%;
+}
+
+/* Garante que o input dentro do select acompanhe o tamanho */
+.br-select .br-input {
+  width: 100%;
+}
+
+/* 1. Força o container do select a ocupar a largura total disponível */
+.br-select {
+  display: flex !important;
+  flex-direction: column;
+  width: 100% !important; /* Força o alinhamento total */
+  min-width: 100% !important;
+}
+
+p{
+  font-size: 90%;
+}
+
+.br-card{
+  padding: 1%;
+
+}

@@ -1,0 +1,270 @@
+<h5>Filtros para Temas Estratégicos</h5>
+
+<div class="br-card rounder-md">
+  <div class="br-card-content p-4">
+    <div class="row gx-3 gy-3 align-items-end">
+      <!-- ano -->
+      <div class="col-12 col-lg-2">
+        <div class="br-select" multiple="multiple">
+          <div class="br-input">
+            <label for="select-multtiple">Ano</label>
+            <input
+              id="select-multtiple"
+              type="text"
+              [placeholder]="selectedYear.label"
+            />
+            <button
+              class="br-button"
+              type="button"
+              aria-label="Exibir lista"
+              tabindex="-1"
+              data-trigger="data-trigger"
+              (click)="toggleDropdownYear($event)"
+            >
+              <i class="fas fa-angle-down" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="br-list" tabindex="0" *ngIf="isDropdownYearOpen">
+            <div
+              class="br-item"
+              *ngFor="let year of years"
+              (click)="selectYear(year)"
+            >
+              <div class="br-radio">
+                <input
+                  [id]="'year-' + year.value"
+                  type="radio"
+                  name="year-select"
+                  [value]="year.value"
+                />
+                <label [for]="'year-' + year">{{ year.label }}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- regiao  -->
+      <div class="col-12 col-lg-2">
+        <div class="br-select" multiple="multiple">
+          <div class="br-input">
+            <label for="region">Região</label>
+            <input
+              id="region"
+              type="text"
+              [placeholder]='selectedRegion'
+            />
+            <button
+              class="br-button"
+              type="button"
+              aria-label="Exibir lista"
+              tabindex="-1"
+              data-trigger="data-trigger"
+              (click)="toggleDropdownRegion($event)"
+            >
+              <i class="fas fa-angle-down" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="br-list" tabindex="0" *ngIf="isDropdownRegionOpen">
+            <div
+              class="br-item"
+              *ngFor="let region of regions"
+              (click)="selectRegion(region)"
+            >
+              <div class="br-checkbox">
+                <input
+                  [id]="region"
+                  type="checkbox"
+                  name="region-select"
+                  [value]="region"
+                />
+                <label [for]="region">{{ region }}</label>
+              </div>
+            </div>
+        </div>
+      </div>
+      <!-- <div class="col-12 col-lg-2">
+        <div class="br-select" data-trigger>
+          <div class="br-input">
+            <label for="region-multi-select">Região</label>
+            <input
+              id="region-multi-select"
+              type="text"
+              placeholder="Selecione..."
+              readonly
+              data-input
+              [value]="regionSelectionLabel()"
+            />
+            <button
+              class="br-button"
+              type="button"
+              aria-label="Exibir lista"
+              tabindex="-1"
+              data-trigger
+            >
+              <i class="fas fa-angle-down"></i>
+            </button>
+          </div>
+          <div
+            class="br-list"
+            tabindex="0"
+            style="max-height: 420px; overflow-y: auto"
+          >
+            <div class="br-item">
+              <div class="br-checkbox">
+                <input
+                  id="chk-region-all"
+                  type="checkbox"
+                  [checked]="selectedRegionFilter.size === 0"
+                  (change)="clearUfRegionFilters()"
+                />
+                <label for="chk-region-all">Todas</label>
+              </div>
+            </div>
+            <div class="br-item" *ngFor="let r of availableRegionsTable">
+              <div class="br-checkbox">
+                <input
+                  [id]="'chk-region-' + r.code"
+                  type="checkbox"
+                  [checked]="selectedRegionFilter.has(r.code)"
+                  (change)="onToggleRegionFromSelect(r.code, $event)"
+                />
+                <label [for]="'chk-region-' + r.code">{{ r.label }}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-2">
+        <div class="br-select" data-trigger>
+          <div class="br-input">
+            <label for="uf-multi-select">Unidade da Federação</label>
+            <input
+              id="uf-multi-select"
+              type="text"
+              placeholder="Selecione..."
+              readonly
+              data-input
+              [value]="ufSelectionLabel()"
+            />
+            <button
+              class="br-button"
+              type="button"
+              aria-label="Exibir lista"
+              tabindex="-1"
+              data-trigger
+            >
+              <i class="fas fa-angle-down"></i>
+            </button>
+          </div>
+          <div
+            class="br-list"
+            tabindex="0"
+            style="max-height: 420px; overflow-y: auto"
+          >
+            <div class="br-item">
+              <div class="br-checkbox">
+                <input
+                  id="chk-uf-all"
+                  type="checkbox"
+                  [checked]="
+                    selectedUfFilter.size === 0 &&
+                    selectedRegionFilter.size === 0
+                  "
+                  (click)="$event.stopPropagation()"
+                  (change)="clearUfRegionFilters()"
+                />
+                <label for="chk-uf-all">Todas</label>
+              </div>
+            </div>
+            <div
+              class="br-item"
+              *ngFor="let opt of availableUfsTableAll; trackBy: trackUfOpt"
+            >
+              <div class="br-checkbox">
+                <input
+                  [id]="'chk-uf-' + opt.uf"
+                  type="checkbox"
+                  [checked]="selectedUfFilter.has(opt.uf)"
+                  (click)="$event.stopPropagation()"
+                  (change)="onToggleUfFromSelect(opt.uf, $event)"
+                />
+                <label [for]="'chk-uf-' + opt.uf">{{ opt.name }}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-3">
+        <div class="br-select" data-trigger style="min-width: 280px">
+          <div class="br-input">
+            <label for="macrotheme-multi-select">Macrotema</label>
+            <input
+              id="macrotheme-multi-select"
+              type="text"
+              placeholder="Selecione..."
+              readonly
+              data-input
+            />
+            <button
+              class="br-button"
+              type="button"
+              aria-label="Exibir lista"
+              tabindex="-1"
+              data-trigger
+            >
+              <i class="fas fa-angle-down"></i>
+            </button>
+          </div>
+          <div
+            class="br-list"
+            tabindex="0"
+            style="max-height: 420px; overflow-y: auto"
+          >
+            <div class="br-item">
+              <div class="br-checkbox">
+                <input
+                  id="chk-macro-all"
+                  type="checkbox"
+                  [checked]="selectedMacroFilterIds.size === 0"
+                  (change)="clearMacrothemesTable()"
+                />
+                <label for="chk-macro-all">Todos</label>
+              </div>
+            </div>
+            <div
+              class="br-item"
+              *ngFor="
+                let mt of availableMacrothemesTable;
+                trackBy: trackMacroOpt
+              "
+            >
+              <div class="br-checkbox">
+                <input
+                  [id]="'chk-macro-' + mt.id"
+                  type="checkbox"
+                  [value]="mt.id"
+                  [checked]="selectedMacroFilterIds.has(mt.id)"
+                  (change)="onToggleMacrothemeFromSelect(mt.id, $event)"
+                />
+                <label [for]="'chk-macro-' + mt.id">{{ mt.name }}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-3">
+        <div class="br-input">
+          <input
+            id="macro-search"
+            type="text"
+            placeholder="Digite para filtrar Macrotemas"
+            (input)="onMacroSearchChange($event)"
+          />
+        </div>
+      </div> -->
+    </div>
+  </div>
+</div>

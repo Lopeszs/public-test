@@ -1,0 +1,96 @@
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+:host {
+    display: block;
+    width: 100%;
+}
+
+:host ::ng-deep form,
+:host ::ng-deep .br-card,
+:host ::ng-deep .br-card-content,
+:host ::ng-deep .row {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.br-select .br-list {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    margin-top: 4px;
+    background-color: white;
+    z-index: 999;
+}
+
+/*
+  #main-searchbox {
+    position: relative;
+  }*/
+
+.search-anchor {
+    position: relative;
+    width: 100%;
+}
+
+#search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    background: white;
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.br-list .br-item:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+.redes-sociais {
+    padding: 10pt 5pt;
+    background: none;
+    color: #fff
+}
+
+.redes-sociais :hover {
+    color: #fff;
+    background: none
+}
+
+.texto-copyright {
+    background-color: #04132a;
+    color: #ccc;
+    font-size: 13px;
+    font-weight: 400;
+    text-align: left;
+    padding: 16px 82px 16px 16px
+}
+
+.texto-copyright a {
+    color: #ededed;
+    font-size: 13px;
+    font-weight: 700
+}
+
+.titulo{
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 700;
+    color:#fff
+}
+
